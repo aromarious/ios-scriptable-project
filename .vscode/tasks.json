@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "このファイルをバンドルしdistに配置する",
+      "type": "shell",
+      "command": "./bundle.sh",
+      "args": ["${file}"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

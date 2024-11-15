@@ -1,0 +1,30 @@
+{
+  "name": "ios-scriptable-project",
+  "version": "1.0.0",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aromarious/ios-scriptable-project.git"
+  },
+  "keywords": [
+    "Scriptable"
+  ],
+  "author": "aromarious@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aromarious/ios-scriptable-project/issues"
+  },
+  "homepage": "https://github.com/aromarious/ios-scriptable-projec#readme",
+  "description": "",
+  "dependencies": {
+    "discord-api-types": "^0.37.102",
+    "markdown-it": "^14.1.0",
+    "papaparse": "^5.4.1"
+  },
+  "devDependencies": {
+    "@scriptable-ios/eslint-config": "^1.7.0",
+    "@types/scriptable-ios": "^1.7.7",
+    "esbuild": "^0.24.0",
+    "prettier": "^3.3.3"
+  }
+}
