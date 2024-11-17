@@ -18,7 +18,8 @@
   "description": "",
   "dependencies": {
     "discord-api-types": "^0.37.102",
-    "markdown-it": "^14.1.0",  "papaparse": "^5.4.1"
+    "markdown-it": "^14.1.0",
+    "papaparse": "^5.4.1"
   },
   "devDependencies": {
     "@scriptable-ios/eslint-config": "^1.7.0",
