@@ -4,7 +4,7 @@
 
 ## 概要
 
-[`Scriptable`](https://scriptable.app/)はiOS/iPadOS内でJavaScriptを実行することができるアプリです。
+[`Scriptable`](https://scriptable.app/)はiOS/iPadOS内のJavaScript実行環境です。
 `Scriptable`を使っていると、`Scriptable`から`npm`パッケージを利用したいことも出てきます。
 `Mac`でパッケージをバンドルしてモジュールを作れば利用できます。そのためのプロジェクトです。
 

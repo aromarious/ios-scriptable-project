@@ -10,6 +10,6 @@ output_file="dist/${output_file/ToBundle/}.js"
 echo "Output file: $output_file"
 
 # esbuildコマンドを実行
-npx esbuild "$input_file" --bundle --platform=node --format=cjs --outfile="$output_file"
+npx esbuild "$input_file" --bundle --platform=node --tree-shaking=true --external:node:.* --format=cjs --outfile="$output_file"
 
 echo "Bundled $input_file to $output_file"
