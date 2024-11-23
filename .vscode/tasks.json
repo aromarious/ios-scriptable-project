@@ -4,12 +4,28 @@
     {
       "label": "このファイルをバンドルしdistに配置する",
       "type": "shell",
-      "command": "./bundle.sh",
-      "args": ["${file}"],
+      "command": "node",
+      "args": ["build.js", "${file}"],
       "problemMatcher": [],
       "group": {
         "kind": "build",
         "isDefault": true
+      }
+    },
+    {
+      "label": "このファイルを実行する",
+      "type": "shell",
+      "command": "node",
+      "args": ["${relativeFile}"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": false
       }
     }
   ]
