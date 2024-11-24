@@ -1,4 +1,7 @@
-const util = require("util")
+// Variables used by Scriptable.
+// These must be at the very top of the file. Do not edit.
+// icon-color: orange; icon-glyph: magic;
+const util = importModule("util")
 
 function getDefaultPrefix() {
   return "\u{1F50D} " // 🔍
@@ -56,4 +59,4 @@ function ixWithoutArguments(functionName) {
   return `[at <${functionName}>]`
 }
 
-globalThis.module.exports = ixWrapper
+module.exports = ixWrapper
