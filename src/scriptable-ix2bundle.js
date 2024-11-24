@@ -9,6 +9,18 @@ function callOrReturn(thing) {
   }
   return thing
 }
+
+/**
+ * returns a function that inspects the arguments using util.inspect
+ * @param {Object} options
+ * @param {Function} [options.prefix] - A function that returns the prefix to use in the output.
+ * @param {Function} [options.outputFunction] - The function to use to output the debug information.
+ * @returns {Function} - The ix function.
+ * @example
+ * const ix = ixWrapper()
+ * ix("Hello, world!")
+ * > 🔍 'Hello, world!'
+ */
 function ixWrapper({
   prefix = getDefaultPrefix,
   outputFunction = console.log,
@@ -41,7 +53,7 @@ function ixWithoutArguments(functionName) {
   if (functionName === "") {
     functionName = "anonymous"
   }
-  return `[at ${functionName}]`
+  return `[at <${functionName}>]`
 }
 
 globalThis.module.exports = ixWrapper
