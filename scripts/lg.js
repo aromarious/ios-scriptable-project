@@ -1,7 +1,8 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
-// icon-color: cyan; icon-glyph: feather-alt;
+// icon-color: light-brown; icon-glyph: magic;
 /*
+2024-11-24 15:04
 ## 使い方
 1. 関数を定義する
 2. commands配列に追加する
@@ -12,7 +13,7 @@
   - ボタンラベル
   - パラメータを指定するオブジェクト、commandプロパティは必須（commands配列に登録した関数の名前）
 
-## アプリ内実行での利用
+  ## アプリ内実行での利用
 1. 実行するとparamsToRunInAppに登録しておいた選択肢が表示される
 2. 選択するとその関数が実行される
 3. 実行結果がQuickLookで表示される
@@ -30,26 +31,60 @@
   2. 2つ以上ならオブジェクトとしてexportされる
     - const { command1, command2 } = importModule("module")
  */
+const util = importModule("util")
+const ix = importModule("scriptable-ix")()
 const systemName = Script.name()
-const lg = importModule("lg")()
-const ix = importModule("scriptable-ix")({ outputFunction: lg })
 
 //#region コマンドの定義と登録
 const commands = []
 const paramsToRunInApp = []
 
-//#region 例 returnInput 引数をそのまま返す
-function returnInput(params) {
-  return params
+//#region 🌼loWrapper ログを出力する関数を返す
+function logWrapper({
+  systemName = Script.name(),
+  fileNameTimeFormat = "yyyyMMdd-HHmmss",
+  fileNameTemplate = "`${systemName}-${_df.string(date)}.txt`",
+  logTimeFormat = "HH:mm:ss.SSS",
+} = {}) {
+  const date = new Date()
+  const _df = new DateFormatter()
+  _df.dateFormat = fileNameTimeFormat
+  const _fileName = eval(fileNameTemplate)
+  _df.dateFormat = logTimeFormat
+  const _fm = FileManager.iCloud()
+  const logDir = _fm.joinPath(_fm.documentsDirectory(), "logs")
+  if (!_fm.fileExists(logDir)) {
+    _fm.createDirectory(logDir)
+  }
+  const _path = _fm.joinPath(logDir, _fileName)
+  return function lg(...args) {
+    const df = _df
+    const fm = _fm
+    const path = _path
+    function read() {
+      if (fm.fileExists(path)) {
+        return fm.readString(path)
+      } else {
+        return ""
+      }
+    }
+    const linesToAdd = args.map((arg) => {
+      const timeStamp = df.string(new Date())
+      return `${timeStamp} ${arg}`
+    })
+    const output = linesToAdd.join("\n")
+    console.log(output)
+    const currentContent = read()
+    const newContent = currentContent + output + "\n"
+    fm.writeString(path, newContent)
+  }
 }
-commands.push(returnInput)
+commands.push(logWrapper)
 paramsToRunInApp.push({
-  label: "returnInput",
-  params: {
-    command: "returnInput",
-  },
+  label: "logWrapper",
+  params: { command: "logWrapper" },
 })
-//#endregion returnInput 引数をそのまま返す
+//#endregion loWrapper ログを出力する関数を返す
 
 //#endregion コマンドの定義と登録
 
@@ -115,7 +150,7 @@ async function main() {
 
 if (config.runsInApp || config.runsWithSiri) {
   //#region モジュールとして使うときはawaitを含む行をコメントアウトする
-  await main()
+  // await main()
   //#endregion モジュールとして使うときはawaitを含む行をコメントアウトする
 }
 
