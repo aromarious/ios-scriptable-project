@@ -31,17 +31,16 @@ function ixWrapper({
   }
 }
 function ixWithArguments(functionName, args) {
-  const outputArr = args.map((arg, i) => {
-    const result = util.inspect(arg, { depth: null })
-    return `${result}`
-  })
+  const outputArr = args.map((arg, i) => util.inspect(arg, { depth: null }))
   return (
     outputArr.join(", ") +
-    // (args.length > 1 ? "\n" : "") +
-    ` [at ${functionName}]`
+    (functionName !== "" ? ` [at <${functionName}>]` : "")
   )
 }
 function ixWithoutArguments(functionName) {
+  if (functionName === "") {
+    functionName = "anonymous"
+  }
   return `[at ${functionName}]`
 }
 
