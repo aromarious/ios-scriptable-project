@@ -86,18 +86,20 @@ async function main() {
   const commandNames = Object.keys(commands)
   let params = {}
   if (config.runsInApp) {
-    const dialog = createDialog(paramsToRunInApp)
-    const index = await dialog.present()
+    let index = 0
+    if (paramsToRunInApp.length > 0) {
+      index = await createDialog(paramsToRunInApp).present()
+    }
     params =
       0 <= index && index < paramsToRunInApp.length
         ? paramsToRunInApp[index].params
-        : {}
+        : null
   } else if (config.runsWithSiri) {
     params = args.shortcutParameter
   }
   ix("params: ", params)
   let result
-  if (Object.keys(params).length > 0) {
+  if (params && Object.keys(params).length > 0) {
     const func = commands.find((c) => c.name === params.command)
     result = await func(params)
   } else {

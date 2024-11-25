@@ -2,6 +2,11 @@
 
 このプロジェクトはiOSアプリ「Scriptable」のスクリプトを管理するためのプロジェクト。
 
+* プロジェクト直下にはバンドルの仕組み
+* [`scripts`](scripts)ディレクトリには普段使っているスクリプト。説明は[`README`](src/README.md)
+
+を置いた。以下、バンドルの仕組みを説明する。（TODO:図解が必要）
+
 ## 概要
 
 [`Scriptable`](https://scriptable.app/)はiOS/iPadOS内のJavaScript実行環境。
@@ -65,14 +70,6 @@ CSVパースライブラリ`papaparse`を`require`し`export`するだけのモ�
 
 * `Routes`: エンドポイント作成のためのAPI。`discord-api-types/v10`をインポートして利用
 * `REST4Scriptable`: `Discord REST`リクエストを発行するAPI。本来なら`@discordjs/rest`を使うところだが、`fetch`を利用しているために利用できない。`Scriptable`用にサブセットを実装した
-
-### [`scriptable-ix`](src/scriptable-ix2bundle.js)
-
-デバッグ出力用モジュール。
-
-* `node-icecream`を使おうとしたが、`Scriptable`では利用不可であったため、代用品を作った。
-* `util`モジュールを使っている。外部パッケージを利用したモックで一部実装。
-* `node-icecream`利用不可の理由：`Scriptable`ではスクリプトがstrictモードで動作することと、スタックトレースが取得不可であるため
 
 ## VS Code で `Scriptable` のコードを取り扱う際のTIPS
 
