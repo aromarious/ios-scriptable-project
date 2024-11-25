@@ -146,10 +146,26 @@ Macでスクリプトを変更しても、iPhoneの`Scriptable`でスクリプ�
 * Scriptableアクションで呼び出せて、戻り値がアクションの出力になる
 * このスクリプトをimportした時にexportされる
 
-4. `Scriptable`内でテスト実行したい場合は`paramsToRunInApp`に次を追加しておく
+4. `Scriptable`内でテスト実行したい場合は`paramsToRunInApp`にこれらを追加しておく
 
 * ボタンラベル
 * パラメータを指定するオブジェクト、commandプロパティは必須（`commands`配列に登録した関数の名前）
+
+```javascript
+// 関数定義
+function returnInput(params) {
+  return params
+}
+// commands配列に追加
+commands.push(returnInput)
+// テスト実行用パラメータ追加
+paramsToRunInApp.push({
+  label: "returnInput",
+  params: {
+    command: "returnInput",
+  },
+})
+```
 
 ### アプリ内実行での利用
 
@@ -157,13 +173,13 @@ Macでスクリプトを変更しても、iPhoneの`Scriptable`でスクリプ�
 2. 選択するとその関数が実行される
 3. 実行結果がQuickLookで表示される
 
-## ショートカットからの利用
+### ショートカットからの利用
 
 1. ショートカット内に辞書アクションを作成
 2. そこに`command`プロパティと、必要な引数のプロパティを設ける
 3. `Scriptable`アクションを作成、`Parameter`に辞書を設定
 
-## モジュールとして利用する場合
+### モジュールとして利用する場合
 
 1. 📌【重要】スクリプト末尾の `await main()` をコメントアウトする
 2. このファイルが`module.js`なら、インポートする側のスクリプトで `importModule("module")` と書いてインポート
