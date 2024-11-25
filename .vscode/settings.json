@@ -29,6 +29,7 @@
     "titleBar.activeForeground": "#FAFAFC",
     "titleBar.inactiveBackground": "#1D1828",
     "titleBar.inactiveForeground": "#FAFAFC",
+    "markdown.codeBlock.background": "#ffffff",
     "[Otakon Contrast (rainglow)]": {
       "statusBar.background": "#5b5172",
       "statusBar.foreground": "#ffffff",
