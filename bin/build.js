@@ -15,12 +15,12 @@ const mockNodeModulesPlugin = {
   name: "mock-node-modules",
   setup(build) {
     const mocks = {
-      "node:path": "./mock-path.js",
       path: "./mock-path.js",
-      "node:fs": "./mock-fs.js",
+      "node:path": "./mock-path.js",
       fs: "./mock-fs.js",
-      "node:util": "./mock-util.js",
+      "node:fs": "./mock-fs.js",
       util: "./mock-util.js",
+      "node:util": "./mock-util.js",
     }
 
     for (const [moduleName, mockPath] of Object.entries(mocks)) {
@@ -75,17 +75,43 @@ const buildNotifierPlugin = {
   },
 }
 
-// esbuild ビルド
-esbuild
-  .build({
-    entryPoints: [entryPoint],
-    bundle: true,
-    outfile: outfile,
-    platform: "browser", // Scriptable 用にブラウザモード
-    plugins: [
-      replaceRequireMainPlugin,
-      mockNodeModulesPlugin,
-      buildNotifierPlugin,
-    ], // プラグイン適用
-  })
-  .catch(() => process.exit(1))
+// タイムスタンプを比較してバンドルするかどうかを決定する関数
+async function shouldBundle(srcFile, distFile) {
+  try {
+    const srcStat = await fs.promises.stat(srcFile)
+    const distStat = await fs.promises.stat(distFile)
+    return srcStat.mtime > distStat.mtime
+  } catch (err) {
+    // distFileが存在しない場合はバンドルする
+    if (err.code === "ENOENT") {
+      return true
+    }
+    throw err
+  }
+}
+
+// ビルドプロセスを実行する関数
+async function build() {
+  const shouldBundleResult = await shouldBundle(entryPoint, outfile)
+  if (!shouldBundleResult) {
+    console.log(`✔️ No changes detected. Skipping build for ${entryPoint}`)
+    return
+  }
+
+  // esbuild ビルド
+  esbuild
+    .build({
+      entryPoints: [entryPoint],
+      bundle: true,
+      outfile: outfile,
+      platform: "browser", // Scriptable 用にブラウザモード
+      plugins: [
+        replaceRequireMainPlugin,
+        mockNodeModulesPlugin,
+        buildNotifierPlugin,
+      ], // プラグイン適用
+    })
+    .catch(() => process.exit(1))
+}
+
+build()

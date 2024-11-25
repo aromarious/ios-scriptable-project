@@ -1,20 +1,27 @@
 {
   "name": "ios-scriptable-project",
   "version": "1.0.0",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky init",
+    "build": "./bin/buildAll.sh"
+  },
+  "bin": {
+    "prepare-publish": "node ./bin/prepare-publish.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aromarious/ios-scriptable-project.git"
   },
   "keywords": [
-    "Scriptable"
+    "Scriptable",
+    "esbuild"
   ],
   "author": "aromarious@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/aromarious/ios-scriptable-project/issues"
   },
-  "homepage": "https://github.com/aromarious/ios-scriptable-projec#readme",
+  "homepage": "https://github.com/aromarious/ios-scriptable-project#readme",
   "description": "",
   "dependencies": {
     "discord-api-types": "^0.37.102",
@@ -26,6 +33,10 @@
     "@scriptable-ios/eslint-config": "^1.7.0",
     "@types/scriptable-ios": "^1.7.7",
     "esbuild": "^0.24.0",
+    "husky": "^9.1.7",
+    "js-yaml": "^4.1.0",
+    "lint-staged": "^15.2.10",
+    "node-icecream": "^1.0.0",
     "prettier": "^3.3.3"
   }
 }
