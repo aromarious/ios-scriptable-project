@@ -3,7 +3,8 @@
   "workbench.colorCustomizations": {
     "editorCursor.foreground": "#fff",
     "editorCursor.background": "#555555",
-    "editor.lineHighlightBorder": "#555555",
+    "editorBracketMatch.background": "#b1a6ca44",
+    "editorBracketMatch.border": "#ffccff11",
     "diffEditor.insertedTextBackground": "#81b88b33",
     "diffEditor.removedTextBackground": "#ff8f8f33",
     "diffEditor.insertedLineBackground": "#81b88b33",
@@ -29,8 +30,9 @@
     "titleBar.activeForeground": "#FAFAFC",
     "titleBar.inactiveBackground": "#1D1828",
     "titleBar.inactiveForeground": "#FAFAFC",
-    "markdown.codeBlock.background": "#ffffff",
     "[Otakon Contrast (rainglow)]": {
+      "editor.lineHighlightBorder": "#5b517255",
+      "editor.lineHighlightBackground": "#55555500",
       "statusBar.background": "#5b5172",
       "statusBar.foreground": "#ffffff",
       "extensionButton.foreground": "#515050",
@@ -74,6 +76,8 @@
       "editorGutter.modifiedBackground": "#503e18aa",
       "statusBar.background": "#a57de4"
     },
+    "editor.lineHighlightBorder": "#555555",
+    "markdown.codeBlock.background": "#ffffff",
     "titleBar.border": "#392F50",
     "editorGroupHeader.tabsBackground": "#392F50",
     "tab.inactiveBackground": "#392F50",
