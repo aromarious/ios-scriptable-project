@@ -54,6 +54,14 @@ class REST4Scriptable {
     } catch (error) {
       return null
     }
+    async function delay(ms) {
+      return new Promise((resolve) => {
+        Timer.schedule(ms, false, resolve) // Timer.scheduleでms後にresolve
+      })
+    }
+    await new Promise((resolve) => {
+      Timer.schedule(5000, false, resolve)
+    })
     return res
   }
 
@@ -64,8 +72,8 @@ class REST4Scriptable {
    * @param {Object} [options.headers] - Additional headers to include in the request.
    * @returns {Promise<*>} - The response from the API.
    */
-  get(route, options) {
-    return this.request("GET", route, options)
+  async get(route, options) {
+    return await this.request("GET", route, options)
   }
 
   /**
@@ -74,8 +82,8 @@ class REST4Scriptable {
    * @param {Object} [options] - Optional settings for the request.
    * @returns {Promise<*>} - The response from the API.
    */
-  delete(route, options) {
-    return this.request("DELETE", route, options)
+  async delete(route, options) {
+    return await this.request("DELETE", route, options)
   }
 
   /**
@@ -86,8 +94,8 @@ class REST4Scriptable {
    * @param {Object} [options.body] - The body of the request.
    * @returns {Promise<*>} - The response from the API.
    */
-  post(route, options) {
-    return this.request("POST", route, options)
+  async post(route, options) {
+    return await this.request("POST", route, options)
   }
 
   /**
@@ -98,8 +106,8 @@ class REST4Scriptable {
    * @param {Object} [options.body] - The body of the request.
    * @returns {Promise<*>} - The response from the API.
    */
-  put(route, options) {
-    return this.request("PUT", route, options)
+  async put(route, options) {
+    return await this.request("PUT", route, options)
   }
 
   /**
@@ -110,8 +118,8 @@ class REST4Scriptable {
    * @param {Object} [options.body] - The body of the request.
    * @returns {Promise<*>} - The response from the API.
    */
-  patch(route, options) {
-    return this.request("PATCH", route, options)
+  async patch(route, options) {
+    return await this.request("PATCH", route, options)
   }
 }
 

@@ -5,7 +5,7 @@
       "label": "このファイルをバンドルしdistに配置する",
       "type": "shell",
       "command": "node",
-      "args": ["build.js", "${file}"],
+      "args": ["./bin/build.js", "${file}"],
       "problemMatcher": [],
       "group": {
         "kind": "build",
@@ -27,6 +27,12 @@
         "kind": "test",
         "isDefault": false
       }
+    },
+    {
+      "label": "全スクリプトをビルドする",
+      "type": "npm",
+      "script": "build"
+      // "path": "./backend"
     }
   ]
 }

@@ -1,32 +1,34 @@
 const esbuild = require("esbuild")
+const process = require("process")
 const path = require("path")
 const fs = require("fs")
 
 const args = process.argv.slice(2)
-const entryPoint = args[0] || "src/module2bundle.js"
+const PROJCET_ROOT = process.cwd()
+const entryPoint = args[0] || "src/module.js"
 const entryPointDir = path.dirname(path.resolve(entryPoint))
 const outfile = entryPoint
   .replace(/\bsrc\b/, "dist")
-  .replace(/2bundle/, "")
-  .replace(/ToBundle/, "")
+  .replace(/\.js$/, ".bundle.js")
+console.log(`Building ${entryPoint} to ${outfile}`)
 
 // プラグイン
 const mockNodeModulesPlugin = {
   name: "mock-node-modules",
   setup(build) {
-    const mocks = {
-      path: "./mock-path.js",
-      "node:path": "./mock-path.js",
-      fs: "./mock-fs.js",
-      "node:fs": "./mock-fs.js",
-      util: "./mock-util.js",
-      "node:util": "./mock-util.js",
+    const injects = {
+      path: "./esbuild-helpers/inject-path.js",
+      "node:path": "./esbuild-helpers/inject-path.js",
+      fs: "./esbuild-helpers/inject-fs.js",
+      "node:fs": "./esbuild-helpers/inject-fs.js",
+      util: "./esbuild-helpers/inject-util.js",
+      "node:util": "./esbuild-helpers/inject-util.js",
     }
 
-    for (const [moduleName, mockPath] of Object.entries(mocks)) {
+    for (const [moduleName, mockPath] of Object.entries(injects)) {
       build.onResolve({ filter: new RegExp(`^${moduleName}$`) }, (args) => {
         console.log(`Resolved ${moduleName} to ${mockPath}`)
-        return { path: path.resolve(__dirname, mockPath) }
+        return { path: path.resolve(PROJCET_ROOT, mockPath) }
       })
     }
   },

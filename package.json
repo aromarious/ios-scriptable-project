@@ -24,6 +24,7 @@
   "homepage": "https://github.com/aromarious/ios-scriptable-project#readme",
   "description": "",
   "dependencies": {
+    "@discordjs/rest": "^2.4.0",
     "discord-api-types": "^0.37.102",
     "markdown-it": "^14.1.0",
     "node-inspect-extracted": "^3.0.2",
