@@ -32,7 +32,7 @@
  */
 const systemName = Script.name()
 const lg = importModule("lg")()
-const ix = importModule("scriptable-ix")({ outputFunction: lg })
+const ix = importModule("scriptable-ix.bundle")({ outputFunction: lg })
 
 //#region コマンドの定義と登録
 const commands = []

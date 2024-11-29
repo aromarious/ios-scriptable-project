@@ -98,7 +98,7 @@ lg('Hello World!')
 
 ```JavaScript
 const lg = importModule('lg')()
-const ix = importModule("scriptable-ix")({
+const ix = importModule("scriptable-ix.bundle")({
   prefix: "🐥 ",
   outputFunction: lg,
 })

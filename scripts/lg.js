@@ -31,8 +31,8 @@
   2. 2つ以上ならオブジェクトとしてexportされる
     - const { command1, command2 } = importModule("module")
  */
-const util = importModule("util")
-const ix = importModule("scriptable-ix")()
+const util = importModule("scriptable-util.bundle")
+const ix = importModule("scriptable-ix.bundle")()
 const systemName = Script.name()
 
 //#region コマンドの定義と登録

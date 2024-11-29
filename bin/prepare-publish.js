@@ -67,12 +67,12 @@ function resolveOriginalPath(original, publicFilePath) {
 function processPublicFile(publicFilePath) {
   const rawContent = fs.readFileSync(publicFilePath, "utf8")
   const config = yaml.load(rawContent)
-  ic(config)
+  // iconfig)
 
   config.forEach((entry) => {
-    ic(filesAlreadyStaged)
+    // ic(filesAlreadyStaged)
     const originalPath = resolveOriginalPath(entry.original, publicFilePath)
-    ic(entry.original, originalPath)
+    // ic(entry.original, originalPath)
 
     entry.files.forEach((file) => {
       const src = path.join(originalPath, file)
@@ -87,15 +87,17 @@ function processPublicFile(publicFilePath) {
 
       // コピー処理
       fs.mkdirSync(path.dirname(dest), { recursive: true })
+      fs.chmodSync(dest, "644") // 書き込み可能にする
       fs.copyFileSync(src, dest)
       // console.log(`Copied: ${src} -> ${dest}`)
-      icf(relativeSrc, relativeDest)
+      fs.chmodSync(dest, "444") // 読み取り専用にして書き込みを防ぐ
+      // icf(relativeSrc, relativeDest)
       console.log(`Copied: ${relativeSrc} -> ${relativeDest}`)
       const isAlreadyStaged = filesAlreadyStaged.includes(relativeDest)
-      ic(relativeDest, isAlreadyStaged)
+      // ic(relativeDest, isAlreadyStaged)
       if (!isAlreadyStaged) {
         // Gitステージングに追加
-        icf(`git add "${relativeDest}"`)
+        // icf(`git add "${relativeDest}"`)
         execSync(`git add "${relativeDest}"`)
       }
     })
@@ -105,14 +107,15 @@ function processPublicFile(publicFilePath) {
 // メイン処理
 function main() {
   const publicFiles = findPublicFiles(PROJECT_ROOT)
-  ic(publicFiles)
+  // ic(publicFiles)
 
   if (publicFiles.length === 0) {
     console.log("No .public files found.")
     return
   }
   publicFiles.forEach((publicFilePath) => {
-    console.log(`Processing: ${publicFilePath}`)
+    const relativePublicFilePath = path.relative(PROJECT_ROOT, publicFilePath)
+    console.log(`Processing: ${relativePublicFilePath}`)
     processPublicFile(publicFilePath)
   })
 }
