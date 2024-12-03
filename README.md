@@ -60,6 +60,18 @@ iOSアプリ「Scriptable」のスクリプトを管理するためのプロジ�
 
 [`src/`](src/)にいくつかスクリプトが置いてある。これらは外部パッケージを利用可能にするモジュールで、バンドルすれば`Scriptable`から利用できる。バンドル前のスクリプる（バンドルすると`.bundle`つきのファイルができる）。いくつか説明する。
 
+### [`emoji-regex`](src/emoji-regex.js)
+
+絵文字にマッチする正規表現オブジェクトを提供するモジュール `emoji-regex` を `require`/`export`するモジュール。`/絵文字1文字/g`の正規表現を返す。ZWJ Sequencesを考慮したマッチを提供してくれる。
+
+```JavaScript
+const text = "🐱😗👩‍💻👨‍👨‍👦‍👦"
+const emojiRegex = importModule("emoji-regex.bundle")()
+const match = text.match(emojiRegex)
+console.log(match)
+// [ '🐱', '😗', '👩‍💻', '👨‍👨‍👦‍👦' ]
+```
+
 ### [`papaparse`](src/papaparse.js)
 
 CSVパースライブラリ`papaparse`を`require`し`export`するだけのモジュール。ピュアJSで書かれており、単純に`require`して`export`するだけのモジュールを書いてバンドルすれば`Scriptable`で利用できる。
@@ -69,11 +81,11 @@ CSVパースライブラリ`papaparse`を`require`し`export`するだけのモ�
 `discordjs`の一部（REST呼び出し）を利用するためのモジュール。
 
 * `Routes`: エンドポイント作成のためのAPI。`discord-api-types/v10`をインポートして利用
-* `REST4Scriptable`: `Discord REST`リクエストを発行するAPI。本来なら`@discordjs/rest`を使うところだが、`fetch`を利用しているために利用できない。`Scriptable`用にサブセットを実装した
+* `REST4Scriptable`: `Discord REST`リクエストを発行するAPI。本来なら`@discordjs/rest`を使うところだが、`fetch`を利用しているために利用できない。`Scriptable`用にサブセットを実装した。
 
 ## VS Code で `Scriptable` のコードを取り扱う際のTIPS
 
-### インポートしたモジュールのコード補完を利用したい
+### インポートしたモジュールを参照したい
 スクリプト側（`importModule()`を呼び出すスクリプト）のコメントに `@type` を書く。
 
 ```JavaScript
@@ -83,7 +95,7 @@ CSVパースライブラリ`papaparse`を`require`し`export`するだけのモ�
 */
 ```
 
-モジュール側にJSDocを書いておくとコード補完に反映される。
+モジュール側にJSDocを書いておくとJSDocの情報が表示される（補完は難しいようだ）。
 外部パッケージを利用している場合はそちらの`@types`を参照するとよい。
 
 ## 選択的公開の仕組み
