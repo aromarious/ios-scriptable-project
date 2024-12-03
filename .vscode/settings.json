@@ -1,4 +1,7 @@
 {
+  "files.exclude": {
+    "dist/@types": true
+  },
   "workbench.preferredDarkColorTheme": "Otakon Contrast (rainglow)",
   "workbench.colorCustomizations": {
     "editorCursor.foreground": "#fff",
@@ -35,9 +38,10 @@
       "editor.lineHighlightBackground": "#55555500",
       "statusBar.background": "#5b5172",
       "statusBar.foreground": "#ffffff",
+      "button.foreground": "#5b5172",
+      "button.hoverBackground": "#f5c5f1",
       "extensionButton.foreground": "#515050",
-      "extensionButton.prominentForeground": "#6e6e6e",
-      "button.foreground": "#5b5172"
+      "extensionButton.prominentForeground": "#6e6e6e"
     },
     "[Soup Contrast (rainglow)]": {
       "statusBar.background": "#2e403e",

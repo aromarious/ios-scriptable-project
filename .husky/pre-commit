@@ -1,1 +1,1 @@
-node ./bin/prepare-publish.js
+./bin/prepare-publish.sh

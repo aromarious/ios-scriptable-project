@@ -2,7 +2,7 @@
 
 iOSアプリ「`Scriptable`」用のスクリプト群
 
-## [`scriptable-ix`](scriptable-ix2bundle.js)
+## [`scriptable-ix`](scriptable-ix.bundle.js)
 
 デバッグ出力用モジュール。`util`の`inspect`を使って内容を見ることができる。
 
@@ -92,13 +92,13 @@ lg('Hello World!')
 10:48:32 Hello world!
 ```
 
-## [`lg`](lg.js)と[`ix`](ix.js)をあわせて使う
+## [`lg`](lg.js)と[`scriptable-ix`](scriptable-ix.bundle.js)をあわせて使う
 
 `ix`は関数取得時に出力関数を設定できる。`lg`を渡してやればファイルに出力できる。
 
 ```JavaScript
 const lg = importModule('lg')()
-const ix = importModule("scriptable-ix")({
+const ix = importModule("scriptable-ix.bundle")({
   prefix: "🐥 ",
   outputFunction: lg,
 })
@@ -116,6 +116,9 @@ const ix = importModule("scriptable-ix")({
 ファイル名: logs/Untitled Script-20241125-104832.txt
 10:48:32.134 🐥 'Hello, world!' [at <anonymous>]
 ```
+
+## [`scriptable-util`](scriptable-util.bundle.js)
+nodeコアモジュールの`node:util`を一部実装したもの。`inspect`が使える。
 
 ## [`template4script`](template4scipt.js)
 

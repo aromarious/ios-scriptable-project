@@ -4,7 +4,7 @@ function getDefaultPrefix() {
   return "\u{1F50D} " // 🔍
 }
 function callOrReturn(thing) {
-  if (thing instanceof Function) {
+  if (typeof thing === "function") {
     return thing()
   }
   return thing

@@ -1,6 +1,10 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: cyan; icon-glyph: feather-alt;
+/**
+ * @type {import("discord-rest.bundle").REST4Scriptable}
+ * @type {import('discord-api-types/v10').Routes}
+ */
 /*
 ## 使い方
 1. 関数を定義する
@@ -32,13 +36,13 @@
  */
 const systemName = Script.name()
 const lg = importModule("lg")()
-const ix = importModule("scriptable-ix")({ outputFunction: lg })
+const ix = importModule("scriptable-ix.bundle")({ outputFunction: lg })
 
 //#region コマンドの定義と登録
 const commands = []
 const paramsToRunInApp = []
 
-//#region 例 returnInput 引数をそのまま返す
+//#region * returnInput 引数をそのまま返す
 function returnInput(params) {
   return params
 }
@@ -49,9 +53,9 @@ paramsToRunInApp.push({
     command: "returnInput",
   },
 })
-//#endregion returnInput 引数をそのまま返す
+//#endregion
 
-//#endregion コマンドの定義と登録
+//#endregion
 
 //#region ショートカットからの実行とアプリ内実行を支援する関数群
 function createDialog(paramsList) {
@@ -75,7 +79,11 @@ async function completeScript(result) {
       result = result.toString()
     }
     console.log(result)
-    await QuickLook.present(result, false)
+    try {
+      await QuickLook.present(result, false)
+    } catch (error) {
+      await QuickLook.present(JSON.stringify(result, null, 2), false)
+    }
   }
   return
 }
@@ -111,12 +119,18 @@ async function main() {
   await completeScript(result)
   return result
 }
-//#endregion
 
-if (config.runsInApp || config.runsWithSiri) {
-  //#region モジュールとして使うときはawaitを含む行をコメントアウトする
-  await main()
-  //#endregion モジュールとして使うときはawaitを含む行をコメントアウトする
+try {
+  if (config.runsInApp || config.runsWithSiri) {
+    //#region モジュールとして使うときはawaitを含む行をコメントアウトする
+    await main()
+    //#endregion モジュールとして使うときはawaitを含む行をコメントアウトする
+  }
+} catch (error) {
+  ix("❌Exception: ", error)
+  if (config.runsWithSiri) {
+    Script.complete()
+  }
 }
 
 const exports =
@@ -124,3 +138,4 @@ const exports =
     ? Object.fromEntries(commands.map((c) => [c.name, c]))
     : commands[0]
 module.exports = exports
+//#endregion

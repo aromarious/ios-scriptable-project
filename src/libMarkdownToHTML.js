@@ -56,8 +56,8 @@ const exports = {
   getHtmlFromMarkdown,
   getFullHtml,
 };
-module.exports = (() => {
-  Logging = importModule("libLogging");
-  l = Logging.getInstance();
-  return exports;
-})();
+globalThis.module.exports = (() => {
+  Logging = importModule("libLogging")
+  l = Logging.getInstance()
+  return exports
+})()
