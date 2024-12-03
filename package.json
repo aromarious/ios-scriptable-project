@@ -2,11 +2,11 @@
   "name": "ios-scriptable-project",
   "version": "1.0.0",
   "scripts": {
-    "prepare": "husky init",
+    "prepare": "husky",
     "build": "./bin/buildAll.sh"
   },
   "bin": {
-    "prepare-publish": "node ./bin/prepare-publish.js"
+    "prepare-publish": "./bin/prepare-publish.sh"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "description": "",
   "dependencies": {
     "@discordjs/rest": "^2.4.0",
+    "date-fns": "^4.1.0",
     "discord-api-types": "^0.37.102",
     "markdown-it": "^14.1.0",
     "node-inspect-extracted": "^3.0.2",

@@ -32,7 +32,6 @@
       "label": "全スクリプトをビルドする",
       "type": "npm",
       "script": "build"
-      // "path": "./backend"
     }
   ]
 }
