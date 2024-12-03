@@ -1,2 +1,2 @@
 const Papa = require("papaparse")
-module.exports = Papa
+globalThis.module.exports = Papa
