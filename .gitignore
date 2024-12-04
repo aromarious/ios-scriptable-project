@@ -1,5 +1,5 @@
 dist
-rollup
+rollup*
 node_modules
 **/*trial.*
 trash
